@@ -1,0 +1,424 @@
+// VARIABLES
+$color-bg: #F8F5F0;
+$color-main: #8B6F4E;
+$color-accent: #CC997E;
+$color-shadow: rgba(0, 0, 0, 0.3);
+$color-text: #F8F5F0;
+
+$gutter: 1rem;
+$radius: 5px;
+$transition-fast: 0.3s ease;
+
+// PLACEHOLDER PARA EXTENDER
+%flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// MIXINS
+@mixin flex-center($direction: row, $gap: 0) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $direction;
+  gap: $gap;
+}
+
+
+// MIXINS
+@mixin button($bg, $hover) {
+  background-color: $bg;
+  color: white;
+  padding: 12px 24px;
+  text-decoration: none;
+  border-radius: $radius;
+  transition: background-color $transition-fast;
+  &:hover {
+    background-color: $hover;
+  }
+}
+
+@mixin responsive($break) {
+  @if $break == tablet {
+    @media (max-width: 1024px) { @content; }
+  }
+  @else if $break == mobile {
+    @media (max-width: 768px) { @content; }
+  }
+  @else if $break == phone {
+    @media (max-width: 480px) { @content; }
+  }
+}
+
+// RESET
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $color-bg;
+}
+
+// HEADER
+.container {
+  @extend %flex-center;
+  justify-content: space-between;
+  height: 100px;
+  padding: 0 $gutter * 3;
+  box-shadow: 0 0 15px lighten($color-main, 20%);
+  background-color: $color-main;
+}
+
+// LOGO
+.logo {
+  @extend %flex-center;
+  gap: 4px;
+  font-size: 20px;
+  color: $color-text;
+
+  svg {
+    width: 50px;
+  }
+}
+
+// NAVBAR
+.nav-web {
+  ul {
+    display: flex;
+    list-style: none;
+    gap: $gutter * 3;
+    margin-left: $gutter * 7;
+  }
+
+  a {
+    text-decoration: none;
+    color: $color-text;
+  }
+}
+
+// NAV-ICON & LOGIN
+.nav-icon {
+  display: flex;
+  gap: $gutter;
+  position: relative;
+
+  ul {
+    display: flex;
+    gap: $gutter;
+    list-style: none;
+  }
+}
+
+.login {
+  display: flex;
+  gap: $gutter * 2;
+  padding-top: 5px;
+
+  a {
+    text-decoration: none;
+    color: $color-text;
+  }
+}
+
+// HERO
+.hero {
+  height: 90vh;
+  @include flex-center(column);
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    background: url("/sourceIcons/Imagen\ de\ WhatsApp\ 2025-03-20\ a\ las\ 19.13.02_087cb180.jpg") center/cover no-repeat;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -2;
+    filter: blur(10px);
+  }
+
+  .hero-overlay {
+    content: "";
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .hero-logo {
+    position: absolute;
+    top: 10%;
+
+    svg {
+      width: 320px;
+      height: 320px;
+      animation: pulse 2s infinite;
+    }
+  }
+
+  h1 {
+    text-decoration: underline $color-text;
+  }
+
+  .hero-text {
+    @include flex-center(column, 10px);
+    position: absolute;
+    bottom: 20%;
+    color: $color-text;
+    font-size: 22px;
+    animation: fadeInUp 1s ease;
+  }
+}
+
+// BOTÓN PRODUCTOS
+.btn-productos {
+  @include button($color-main, $color-accent);
+}
+
+// PRODUCTOS
+.productos {
+  color: $color-main;
+  text-decoration: underline $color-main;
+  text-align: center;
+  padding: 20px;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+}
+
+.product-box {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.product-card {
+  background-color: $color-bg;
+  padding: 10px;
+  border-radius: 8px;
+  justify-content: center;
+  box-shadow: 0 4px 6px $color-shadow;
+  max-width: 250px;
+  margin-left: 45px;
+  transition: transform $transition-fast;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .btn-carrito {
+    @include button($color-main, $color-accent);
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+// SEPARADOR
+.father-line {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.line {
+  height: 4px;
+  width: 70%;
+  background-color: $color-main;
+}
+
+// FEATURES
+.features {
+  @extend %flex-center;
+  min-height: 50vh;
+  font-size: 18px;
+
+  &-item {
+    @include flex-center(column, 10px);
+
+    svg {
+      width: 5rem;
+      height: auto;
+    }
+  }
+
+  &-list {
+    ul {
+      display: flex;
+      gap: $gutter * 15;
+      list-style: none;
+    }
+  }
+}
+
+// FOOTER
+.footer {
+  display: flex;
+  position: relative;
+  background-color: $color-main;
+  min-height: 220px;
+  overflow: hidden;
+
+  .site-info {
+    display: flex;
+  }
+
+  .copy {
+    list-style: none;
+    flex-wrap: wrap;
+    width: 550px;
+    position: absolute;
+    top: 15%;
+    left: 25px;
+  }
+
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 200px;
+    top: 10px;
+    list-style: none;
+
+    h4 {
+      font-size: 20px;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+
+      a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        gap: 5px;
+      }
+    }
+  }
+}
+
+// MEDIA QUERIES
+@include responsive(tablet) {
+  .product-box {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+  }
+
+  .nav-web ul {
+    gap: 1.5rem;
+    margin-left: 2rem;
+  }
+
+  .features-list ul {
+    gap: 6rem;
+  }
+
+  .product-card {
+    margin-left: 0;
+  }
+}
+
+@include responsive(mobile) {
+  .container {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+  }
+
+  .nav-web ul,
+  .nav-icon ul {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .product-box {
+    grid-template-columns: 1fr;
+  }
+
+  .features {
+    flex-direction: column;
+    font-size: 16px;
+  }
+
+  .features-list ul {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+
+    .copy,
+    .footer-contact {
+      position: static;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+
+@include responsive(phone) {
+  .logo svg {
+    width: 35px;
+  }
+
+  .hero-logo svg {
+    width: 200px;
+    height: 200px;
+  }
+
+  .btn-productos {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .product-card {
+    max-width: 90%;
+  }
+
+  .hero-text {
+    font-size: 16px;
+  }
+}
+
+// ANIMACIONES
+@keyframes fadeInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
